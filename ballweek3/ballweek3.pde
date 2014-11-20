@@ -5,8 +5,7 @@ float xSpeed = 10;
 float gravity = 0.1;
 float breaking = 0.09;
 int r, g, b;
-boolean movingUp=false;
-boolean movingLeft=false;
+
 
 void setup() {
 
