@@ -4,19 +4,45 @@ class Ball {
   float gravity =0.1;
   float breaking = 0.1;
 
-  void Ball(inX, inY, inVelX, inVelY) {
+  Ball(float inX, float inY, float inVelX, float inVelY) {
     location = new PVector (inX, inY);
     velocity = new PVector (inVelX, inVelY);
   }
   void update() {
+    move();
+    if (shouldBounceX()) {
+      bounceX();
+    }
+    if (shouldBounceY()) {
+      bounceY();
+    }
+    draw();
   }
   void move() {
+    location.add(velocity);
+    velocity.y += gravity;
   }
-  boolean shouldBounce() {
+  boolean shouldBounceX() {
+    return ((location.x >width) || (location.x <0));
   }
-  void bounce() {
+  boolean shouldBounceY() {
+    return ((location.y >height) || (location.y<0));
   }
-  void draw() {
-  }
-}
+  void bounceX() {
+    velocity.x = velocity.x * -1;
 
+    if (location.x <0) {
+      location.x =0;
+    } else if (location.x> width) {
+      location.x = width;
+    }
+  }
+  void bounceY() {
+    velocity.y *= -(1-breaking);
+    location.y = height - ballSize/2;
+  }
+void draw() {
+  fill(216, 7, 21);
+  ellipse(location.x, location.y, ballSize, ballSize);
+}
+}
